@@ -3,10 +3,12 @@ VER = 90
 ### import numpy as np
 from collections import defaultdict
 import pandas as pd
-from tqdm.notebook import tqdm
+# from tqdm.notebook import tqdm
+from tqdm import tqdm
 import glob
 import numpy as np, gc
-import multiprocessing
+# import multiprocessing
+from multiprocessing import Pool, get_context
 import os
 import pickle
 
@@ -27,8 +29,11 @@ def gen_pairs(df):
 
 def gen_aid_pairs(all_pairs):
     #all_pairs = defaultdict(lambda: Counter())
-    with tqdm(glob.glob('../../data/train_data/*_parquet/*'), desc='Chunks') as prog:
-        with multiprocessing.Pool(20) as p:
+    # with tqdm(glob.glob('../../data/train_data/*_parquet/*'), desc='Chunks') as prog:
+    with tqdm(glob.glob('../../data/train_data/*_parquet/*.parquet'), desc='Chunks') as prog:
+        #[MEMO] https://zenn.dev/bilzard/scraps/8af1a1934909b0
+        # with multiprocessing.Pool(20) as p:
+        with get_context("fork").Pool(20) as p:
             for idx, chunk_file in enumerate(prog):
                 chunk = pd.read_parquet(chunk_file)#.drop(columns=['type'])
                 pair_chunks = p.map(gen_pairs, np.array_split(chunk.head(100000000 if not DEBUG else 10000), 120))
