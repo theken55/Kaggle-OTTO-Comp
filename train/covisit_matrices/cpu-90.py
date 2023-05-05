@@ -72,7 +72,10 @@ for aid, cnt in tqdm(all_pairs.items()):
     df_top_40.append({'aid1': aid, 'aid2': [aid2 for aid2, freq in cnt.most_common(40)]})
 
 df_top_40 = pd.DataFrame(df_top_40).set_index('aid1')
-df_top_40.aid2 = df_top_40.aid2.astype('int32')
+# [MEMO]aid2 is list, so can not convert to int32
+# df_top_40.aid2 = df_top_40.aid2.astype('int32')
+# [MEMO] to_dict creates aid1 to aid2 list dictionary
+# {1728212: [452188, 1271998, 396199], 452188: [1728212, 1271998, 396199], 1271998: [1728212, 452188, 396199],...
 top_40 = df_top_40.aid2.to_dict()
 with open(f'../../data/covisit_matrices/top_40_buy2buy_v{VER}.pkl', 'wb') as f:
     pickle.dump(top_40, f)
