@@ -3,12 +3,8 @@ VER = 90
 ### import numpy as np
 from collections import defaultdict
 import pandas as pd
-from tqdm.notebook import tqdm
-# from tqdm import tqdm
 import glob
 import numpy as np, gc
-# import multiprocessing
-from multiprocessing import Pool, get_context
 import os
 import pickle
 
@@ -22,8 +18,18 @@ TOP_20_CACHE = 'top_20_aids.pkl'
 
 import sys
 
-INPUT='/kaggle/input/otto-mydata/otto-mydata'
-OUTPUT='/kaggle/working'
+ON_KAGGLE=True
+if ON_KAGGLE:
+    from tqdm.notebook import tqdm
+    import multiprocessing
+    INPUT='/kaggle/input/otto-mydata/otto-mydata'
+    OUTPUT='/kaggle/working'
+else:
+    from tqdm import tqdm
+    from multiprocessing import Pool, get_context
+    INPUT='../../data'
+    OUTPUT='../..'
+
 OUTPUT_COVISIT_MATRICES=OUTPUT+'/data/covisit_matrices'
 import os
 for mydir in [OUTPUT_COVISIT_MATRICES]:
@@ -41,8 +47,8 @@ def gen_aid_pairs(all_pairs):
     # with tqdm(glob.glob('../../data/train_data/*_parquet/*.parquet'), desc='Chunks') as prog:
     with tqdm(glob.glob(INPUT+'/train_data/*_parquet/*.parquet'), desc='Chunks') as prog:
         #[MEMO] https://zenn.dev/bilzard/scraps/8af1a1934909b0
-        # with multiprocessing.Pool(20) as p:
-        with get_context("fork").Pool(20) as p:
+        with multiprocessing.Pool(20) as p:
+        # with get_context("fork").Pool(20) as p:
             for idx, chunk_file in enumerate(prog):
                 chunk = pd.read_parquet(chunk_file)#.drop(columns=['type'])
                 pair_chunks = p.map(gen_pairs, np.array_split(chunk.head(100000000 if not DEBUG else 10000), 120))
