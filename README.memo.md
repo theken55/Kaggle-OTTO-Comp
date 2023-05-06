@@ -15,7 +15,7 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
 * **(1) Download Data from Kaggle**
 * => Run [/data/make_train_valid.ipynb](data/make_train_valid.ipynb)
 * **(2) Train Models**
-* => compute co-visit matrices by running [/train/covisit_matrices/script.ipynb](train/covisit_matrices/script.ipynb)
+* => (2-1) compute co-visit matrices by running [/train/covisit_matrices/script.ipynb](train/covisit_matrices/script.ipynb)
   * [ ] gpu-115.ipynb
   * [ ] gpu-116.ipynb
   * [ ] gpu-155.ipynb
@@ -36,7 +36,7 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [x] cpu-90.ipynb
   * [ ] cpu-95.ipynb
   * [ ] cpu-99.ipynb
-* => generate candidates and scores with [/train/candidates/script.ipynb](train/candidates/script.ipynb)
+* => (2-2) generate candidates and scores with [/train/candidates/script.ipynb](train/candidates/script.ipynb)
   * [x] make-valid-with-d.ipynb
   * [ ] model-564-1.ipynb
   * [ ] model-564-1-wgt.ipynb
@@ -82,7 +82,7 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [ ] model-620-wgt.ipynb
   * [ ] model-709.ipynb
   * [ ] model-709-wgt.ipynb
-* => engineer features with [/train/item_user_features/script.ipynb](train/item_user_features/script.ipynb)
+* => (2-3) engineer features with [/train/item_user_features/script.ipynb](train/item_user_features/script.ipynb)
   * [ ] embeddings-for-train.ipynb
   * [ ] item-features-10.ipynb
   * [ ] item-features-12.ipynb
@@ -98,11 +98,11 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [ ] user-features-21.ipynb
   * [ ] user-features-4.ipynb
   * [ ] user-features-7.ipynb
-* => merge candidates and features for click model with [/train/make_parquets/script-1.ipynb](train/make_parquets/script-1.ipynb)
-* => train click model with [/train/ranker_models/XGB-186-CLICKS.ipynb](train/ranker_models/XGB-186-CLICKS.ipynb)
-* => merge candidates and features for cart and order model with [/train/make_parquets/script-2.ipynb](train/make_parquets/script-2.ipynb)
-* => train cart model with [/train/ranker_models/XGB-406-CARTS.ipynb](train/ranker_models/XGB-406-CARTS.ipynb)
-* => train order model with [/train/ranker_models/XGB-412-ORDERS.ipynb](train/ranker_models/XGB-412-ORDERS.ipynb)
+* => (2-4) merge candidates and features for click model with [/train/make_parquets/script-1.ipynb](train/make_parquets/script-1.ipynb)
+* => (2-5) train click model with [/train/ranker_models/XGB-186-CLICKS.ipynb](train/ranker_models/XGB-186-CLICKS.ipynb)
+* => (2-6) merge candidates and features for cart and order model with [/train/make_parquets/script-2.ipynb](train/make_parquets/script-2.ipynb)
+* => (2-7) train cart model with [/train/ranker_models/XGB-406-CARTS.ipynb](train/ranker_models/XGB-406-CARTS.ipynb)
+* => (2-8) train order model with [/train/ranker_models/XGB-412-ORDERS.ipynb](train/ranker_models/XGB-412-ORDERS.ipynb)
 * **(3) Infer Models**
 * => compute LB co-visit matrices by running [/infer/covisit_matrices_LB/script.ipynb](infer/covisit_matrices_LB/script.ipynb)
 * => generate LB candidates and scores with [/infer/candidates_LB/script.ipynb](infer/candidates_LB/script.ipynb)
