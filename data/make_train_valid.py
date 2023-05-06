@@ -87,7 +87,7 @@ for k in range(parts2):
 
 # remaining files
 import shutil
-for file in ['id2type.pkl','test_labels.parquet','type2id.pkl']:
+for file in ['id2type.pkl','type2id.pkl','test_labels.parquet','train.parquet','test.parquet']:
     shutil.copyfile(DS1 + '/' + file, OUTPUT + 'train_data/'+file)
 
 for file in ['id2type.pkl','type2id.pkl']:
