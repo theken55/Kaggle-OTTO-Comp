@@ -1,18 +1,13 @@
-#[MEMO] cudf not supported on mac
-# import cudf
-# print('RAPIDS cuDF version',cudf.__version__)
-import pandas as pd
+import cudf
+print('RAPIDS cuDF version',cudf.__version__)
 
-# train = cudf.read_parquet('../../data/train_data/train.parquet')
-train = pd.read_parquet('../../data/train_data/train.parquet')
+train = cudf.read_parquet('../../data/train_data/train.parquet')
 train = train.sort_values(['session','ts'])
 
-# test = cudf.read_parquet('../../data/train_data/test.parquet')
-test = pd.read_parquet('../../data/train_data/test.parquet')
+test = cudf.read_parquet('../../data/train_data/test.parquet')
 test = test.sort_values(['session','ts'])
 
-# train_pairs = cudf.concat([train, test],axis=0,ignore_index=True)[['session', 'aid']]
-train_pairs = pd.concat([train, test],axis=0,ignore_index=True)[['session', 'aid']]
+train_pairs = cudf.concat([train, test],axis=0,ignore_index=True)[['session', 'aid']]
 del train, test
 
 train_pairs['aid_next'] = train_pairs.groupby('session').aid.shift(-1)
@@ -21,11 +16,10 @@ train_pairs = train_pairs[['aid', 'aid_next']].dropna().reset_index(drop=True)
 cardinality_aids = 1855602
 print('Cardinality of items is',cardinality_aids)
 
-#!pip install merlin-dataloader==0.0.2
+!pip install merlin-dataloader==0.0.2
 from merlin.loader.torch import Loader
 
-# train_pairs.to_pandas().to_parquet('all_pairs.parquet')
-train_pairs.to_parquet('all_pairs.parquet')
+train_pairs.to_pandas().to_parquet('all_pairs.parquet')
 #train_pairs[:-10_000_000].to_pandas().to_parquet('train_pairs.parquet')
 #train_pairs[-10_000_000:].to_pandas().to_parquet('valid_pairs.parquet')
 
@@ -34,6 +28,7 @@ from merlin.io import Dataset
 
 train_ds = Dataset('all_pairs.parquet')
 train_dl_merlin = Loader(train_ds, 65536, True)
+
 
 import torch
 from torch import nn
