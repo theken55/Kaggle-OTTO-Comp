@@ -83,6 +83,21 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [ ] model-709.ipynb
   * [ ] model-709-wgt.ipynb
 * => engineer features with [/train/item_user_features/script.ipynb](train/item_user_features/script.ipynb)
+  * [ ] embeddings-for-train.ipynb
+  * [ ] item-features-10.ipynb
+  * [ ] item-features-12.ipynb
+  * [ ] item-features-13.ipynb
+  * [ ] item-features-20.ipynb
+  * [ ] item-features-21.ipynb
+  * [ ] item-features-22.ipynb
+  * [ ] item-features-4.ipynb
+  * [ ] item-features-40.ipynb
+  * [ ] item-features-41.ipynb
+  * [ ] user-features-10.ipynb
+  * [ ] user-features-20.ipynb
+  * [ ] user-features-21.ipynb
+  * [ ] user-features-4.ipynb
+  * [ ] user-features-7.ipynb
 * => merge candidates and features for click model with [/train/make_parquets/script-1.ipynb](train/make_parquets/script-1.ipynb)
 * => train click model with [/train/ranker_models/XGB-186-CLICKS.ipynb](train/ranker_models/XGB-186-CLICKS.ipynb)
 * => merge candidates and features for cart and order model with [/train/make_parquets/script-2.ipynb](train/make_parquets/script-2.ipynb)
