@@ -1,10 +1,19 @@
 import cudf
 print('RAPIDS cuDF version',cudf.__version__)
 
-train = cudf.read_parquet('../../data/train_data/train.parquet')
+INPUT='/kaggle/input/otto-mydata/otto-mydata'
+OUTPUT='/kaggle/working'
+OUTPUT_ITEM_USER_FEATURES=OUTPUT+'/data/item_user_features'
+import os
+for mydir in [OUTPUT_ITEM_USER_FEATURES]:
+    os.makedirs(mydir, exist_ok=True)
+
+# train = cudf.read_parquet('../../data/train_data/train.parquet')
+train = cudf.read_parquet(INPUT+'/train_data/train.parquet')
 train = train.sort_values(['session','ts'])
 
-test = cudf.read_parquet('../../data/train_data/test.parquet')
+# test = cudf.read_parquet('../../data/train_data/test.parquet')
+test = cudf.read_parquet(INPUT+'/train_data/test.parquet')
 test = test.sort_values(['session','ts'])
 
 train_pairs = cudf.concat([train, test],axis=0,ignore_index=True)[['session', 'aid']]
@@ -116,5 +125,6 @@ for epoch in range(num_epochs):
 # EXTRACT EMBEDDINGS FROM MODEL EMBEDDING TABLE
 import numpy as np
 embeddings = model.aid_factors.weight.detach().cpu().numpy().astype('float32')
-np.save('../../data/item_user_features/item_embed_32',embeddings)
+# np.save('../../data/item_user_features/item_embed_32',embeddings)
+np.save(OUTPUT+'/data/item_user_features/item_embed_32',embeddings)
 print('Item Matrix Factorization embeddings have shape',embeddings.shape)
