@@ -5,6 +5,7 @@
 #     !cd train_data; unzip otto-train-and-test-data-for-local-validation.zip
 DS1='/kaggle/input/otto-train-and-test-data-for-local-validation'
 
+# do not use this
 # https://www.kaggle.com/datasets/columbia2131/otto-chunk-data-inparquet-format
 # DOWNLOAD COMPETITION DATA
 # !cd infer_data; kaggle datasets download columbia2131/otto-chunk-data-inparquet-format
@@ -58,7 +59,7 @@ for k in range(parts):
     tmp = df.loc[df.session.isin(u)]
     tmp = tmp.sort_values(['session','ts'])
     # tmp.to_parquet(f'train_data/train_parquet/{k:03d}.parquet',index=False)
-    tmp.to_parquet(OUTPUT + 'train_data/train_parquet/{k:03d}.parquet',index=False)
+    tmp.to_parquet(OUTPUT + f'train_data/train_parquet/{k:03d}.parquet',index=False)
     print(k,', ',end='')
 
 
@@ -81,6 +82,6 @@ for k in range(parts2):
     tmp = df2.loc[df2.session.isin(u)]
     tmp = tmp.sort_values(['session','ts'])
     # tmp.to_parquet(f'train_data/test_parquet/{k:03d}.parquet',index=False)
-    tmp.to_parquet(OUTPUT + 'train_data/test_parquet/{k:03d}.parquet',index=False)
+    tmp.to_parquet(OUTPUT + f'train_data/test_parquet/{k:03d}.parquet',index=False)
     print(k,', ',end='')
 
