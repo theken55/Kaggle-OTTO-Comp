@@ -25,16 +25,14 @@ print('Cardinality of items is',cardinality_aids)
 from merlin.loader.torch import Loader
 
 # train_pairs.to_pandas().to_parquet('all_pairs.parquet')
-# train_pairs[:-10_000_000].to_pandas().to_parquet('train_pairs.parquet')
-# train_pairs[-10_000_000:].to_pandas().to_parquet('valid_pairs.parquet')
-train_pairs[:-10_000_000].to_parquet('train_pairs.parquet')
-train_pairs[-10_000_000:].to_parquet('valid_pairs.parquet')
+train_pairs.to_parquet('all_pairs.parquet')
+#train_pairs[:-10_000_000].to_pandas().to_parquet('train_pairs.parquet')
+#train_pairs[-10_000_000:].to_pandas().to_parquet('valid_pairs.parquet')
 
 from merlin.loader.torch import Loader
 from merlin.io import Dataset
 
-# train_ds = Dataset('all_pairs.parquet')
-train_ds = Dataset('train_pairs.parquet')
+train_ds = Dataset('all_pairs.parquet')
 train_dl_merlin = Loader(train_ds, 65536, True)
 
 import torch
@@ -86,15 +84,15 @@ model = MatrixFactorization(cardinality_aids+1, 32)
 optimizer = SparseAdam(model.parameters(), lr=lr)
 criterion = nn.BCEWithLogitsLoss()
 
-# model.to('cuda')
+model.to('cuda')
 for epoch in range(num_epochs):
     for batch, _ in train_dl_merlin:
         model.train()
         losses = AverageMeter('Loss', ':.4e')
 
         aid1, aid2 = batch['aid'], batch['aid_next']
-        # aid1 = aid1.to('cuda')
-        # aid2 = aid2.to('cuda')
+        aid1 = aid1.to('cuda')
+        aid2 = aid2.to('cuda')
         output_pos = model(aid1, aid2)
         output_neg = model(aid1, aid2[torch.randperm(aid2.shape[0])])
 
