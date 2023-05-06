@@ -17,6 +17,51 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
 * **(2) Train Models**
 * => compute co-visit matrices by running [/train/covisit_matrices/script.ipynb](train/covisit_matrices/script.ipynb)
 * => generate candidates and scores with [/train/candidates/script.ipynb](train/candidates/script.ipynb)
+  * [ ] make-valid-with-d.ipynb
+  * [ ] model-564-1.ipynb
+  * [ ] model-564-1-wgt.ipynb
+  * model-564-20.ipynb
+  * model-564-20-wgt.ipynb
+  * model-564-21.ipynb
+  * model-564-21-wgt.ipynb
+  * model-564-22.ipynb
+  * model-564-22-wgt.ipynb
+  * model-564-23.ipynb
+  * model-564-23-wgt.ipynb
+  * model-564-24.ipynb
+  * model-564-24-wgt.ipynb
+  * model-564-25.ipynb
+  * model-564-25-wgt.ipynb
+  * model-564-26.ipynb
+  * model-564-26-wgt.ipynb
+  * model-564-27.ipynb
+  * model-564-27-wgt.ipynb
+  * model-564-3.ipynb
+  * model-564-3-wgt.ipynb
+  * model-564-31.ipynb
+  * model-564-31-wgt.ipynb
+  * model-564-32.ipynb
+  * model-564-32-wgt.ipynb
+  * model-564-33.ipynb
+  * model-564-33-wgt.ipynb
+  * model-564-4.ipynb
+  * model-564-4-wgt.ipynb
+  * model-564-5.ipynb
+  * model-564-5-wgt.ipynb
+  * model-564-6.ipynb
+  * model-564-6-wgt.ipynb
+  * model-564-7.ipynb
+  * model-564-7-wgt.ipynb
+  * model-564-F.ipynb
+  * model-564-F-wgt.ipynb
+  * model-612.ipynb
+  * model-612-wgt.ipynb
+  * model-614.ipynb
+  * model-614-wgt.ipynb
+  * make-valid-lists.ipynb
+  * model-620-wgt.ipynb
+  * model-709.ipynb
+  * model-709-wgt.ipynb
 * => engineer features with [/train/item_user_features/script.ipynb](train/item_user_features/script.ipynb)
 * => merge candidates and features for click model with [/train/make_parquets/script-1.ipynb](train/make_parquets/script-1.ipynb)
 * => train click model with [/train/ranker_models/XGB-186-CLICKS.ipynb](train/ranker_models/XGB-186-CLICKS.ipynb)
