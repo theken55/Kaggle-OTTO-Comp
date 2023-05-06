@@ -19,16 +19,16 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
 * => generate candidates and scores with [/train/candidates/script.ipynb](train/candidates/script.ipynb)
 * => engineer features with [/train/item_user_features/script.ipynb](train/item_user_features/script.ipynb)
 * => merge candidates and features for click model with [/train/make_parquets/script-1.ipynb](train/make_parquets/script-1.ipynb)
-* => train click model with [/train/ranker_model/XGB-186-CLICKS.ipynb](train/ranker_model/XGB-186-CLICKS.ipynb)
+* => train click model with [/train/ranker_models/XGB-186-CLICKS.ipynb](train/ranker_models/XGB-186-CLICKS.ipynb)
 * => merge candidates and features for cart and order model with [/train/make_parquets/script-2.ipynb](train/make_parquets/script-2.ipynb)
-* => train cart model with [/train/ranker_model/XGB-406-CARTS.ipynb](train/ranker_model/XGB-406-CARTS.ipynb)
-* => train order model with [/train/ranker_model/XGB-412-ORDERS.ipynb](train/ranker_model/XGB-412-ORDERS.ipynb)
+* => train cart model with [/train/ranker_models/XGB-406-CARTS.ipynb](train/ranker_models/XGB-406-CARTS.ipynb)
+* => train order model with [/train/ranker_models/XGB-412-ORDERS.ipynb](train/ranker_models/XGB-412-ORDERS.ipynb)
 * **(3) Infer Models**
 * => compute LB co-visit matrices by running [/infer/covisit_matrices_LB/script.ipynb](infer/covisit_matrices_LB/script.ipynb)
 * => generate LB candidates and scores with [/infer/candidates_LB/script.ipynb](infer/candidates_LB/script.ipynb)
-* => engineer LB features with [/infer/item_user_features_LB/script.ipynb](/infer/item_user_features_LB/script.ipynb)
-* => merge LB candidates and features for click model with [/infer/make_parquets_LB/script.ipynb](/infer/make_parquets_LB/script.ipynb)
-* => infer models with [/infer/inference_LB/script.ipynb](/infer/inference_LB/script.ipynb)
+* => engineer LB features with [/infer/item_user_features_LB/script.ipynb](infer/item_user_features_LB/script.ipynb)
+* => merge LB candidates and features for click model with [/infer/make_parquets_LB/script.ipynb](infer/make_parquets_LB/script.ipynb)
+* => infer models with [/infer/inference_LB/script.ipynb](infer/inference_LB/script.ipynb)
 
 After running the steps above, the file `/data/submission_final/submission_chris_v186v406v412.csv` is generated. 
 This file will score Private LB 0.6012 and Public LB 0.6010. To achieve a better CV and LB, we can train CatBoost with the
