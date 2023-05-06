@@ -24,8 +24,8 @@ if ON_KAGGLE:
     import multiprocessing
     INPUT='/kaggle/input/otto-mydata/otto-mydata'
     OUTPUT='/kaggle/working'
-    THREAD_NUM=1
-    # print("os.cpu_count():%d" % os.cpu_count())
+    THREAD_NUM=os.cpu_count()
+    print("os.cpu_count():%d" % THREAD_NUM)
 else:
     from tqdm import tqdm
     from multiprocessing import Pool, get_context
