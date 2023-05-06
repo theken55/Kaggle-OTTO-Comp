@@ -85,3 +85,10 @@ for k in range(parts2):
     tmp.to_parquet(OUTPUT + f'train_data/test_parquet/{k:03d}.parquet',index=False)
     print(k,', ',end='')
 
+# remaining files
+import shutil
+for file in ['id2type.pkl','test_labels.parquet','type2id.pkl']:
+    shutil.copyfile(DS1 + '/' + file, OUTPUT + 'train_data/'+file)
+
+for file in ['id2type.pkl','type2id.pkl']:
+    shutil.copyfile(DS3 + '/' + file, OUTPUT + 'infer_data/'+file)
