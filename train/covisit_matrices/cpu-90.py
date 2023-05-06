@@ -24,13 +24,15 @@ if ON_KAGGLE:
     import multiprocessing
     INPUT='/kaggle/input/otto-mydata/otto-mydata'
     OUTPUT='/kaggle/working'
+    THREAD_NUM=1
+    # print("os.cpu_count():%d" % os.cpu_count())
 else:
     from tqdm import tqdm
     from multiprocessing import Pool, get_context
     INPUT='../../data'
     OUTPUT='../..'
+    THREAD_NUM=20
 
-print("os.cpu_count():%d" % os.cpu_count())
 OUTPUT_COVISIT_MATRICES=OUTPUT+'/data/covisit_matrices'
 import os
 for mydir in [OUTPUT_COVISIT_MATRICES]:
@@ -49,7 +51,7 @@ def gen_aid_pairs(all_pairs):
     with tqdm(glob.glob(INPUT+'/train_data/*_parquet/*.parquet'), desc='Chunks') as prog:
         #[MEMO] https://zenn.dev/bilzard/scraps/8af1a1934909b0
         # with multiprocessing.Pool(20) as p:
-        with multiprocessing.Pool(os.cpu_count()) as p:
+        with multiprocessing.Pool(THREAD_NUM) as p:
         # with get_context("fork").Pool(20) as p:
             for idx, chunk_file in enumerate(prog):
                 chunk = pd.read_parquet(chunk_file)#.drop(columns=['type'])
