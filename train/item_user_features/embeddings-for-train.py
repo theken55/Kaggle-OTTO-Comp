@@ -26,16 +26,15 @@ cardinality_aids = 1855602
 print('Cardinality of items is',cardinality_aids)
 
 !pip install merlin-dataloader==0.0.2
-from merlin.loader.torch import Loader
+# from merlin.loader.torch import Loader
 
-train_pairs.to_pandas().to_parquet('all_pairs.parquet')
-#train_pairs[:-10_000_000].to_pandas().to_parquet('train_pairs.parquet')
-#train_pairs[-10_000_000:].to_pandas().to_parquet('valid_pairs.parquet')
+train_pairs[:-10_000_000].to_pandas().to_parquet('train_pairs.parquet')
+train_pairs[-10_000_000:].to_pandas().to_parquet('valid_pairs.parquet')
 
 from merlin.loader.torch import Loader
 from merlin.io import Dataset
 
-train_ds = Dataset('all_pairs.parquet')
+train_ds = Dataset('train_pairs.parquet')
 train_dl_merlin = Loader(train_ds, 65536, True)
 
 
