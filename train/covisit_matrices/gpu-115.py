@@ -5,7 +5,7 @@ import pandas as pd
 
 VER = 115
 
-ON_KAGGLE=False
+ON_KAGGLE=True
 if ON_KAGGLE:
     import cudf
     print('RAPIDS cuDF version',cudf.__version__)
