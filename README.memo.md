@@ -93,7 +93,7 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [ ] item-features-4.ipynb
   * [ ] item-features-40.ipynb
   * [ ] item-features-41.ipynb
-  * [ ] user-features-10.ipynb
+  * [x] user-features-10.ipynb
   * [ ] user-features-20.ipynb
   * [ ] user-features-21.ipynb
   * [ ] user-features-4.ipynb

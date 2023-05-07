@@ -1,9 +1,22 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
+import pandas as pd
 
-import cudf, pandas as pd
+ON_KAGGLE=False
+if ON_KAGGLE:
+    import cudf
+    print('RAPIDS cuDF version',cudf.__version__)
 
-df = cudf.read_parquet('../../data/train_data/test.parquet')
+    INPUT='/kaggle/input/otto-mydata/otto-mydata'
+    OUTPUT='/kaggle/working'
+    OUTPUT_ITEM_USER_FEATURES=OUTPUT+'/data/item_user_features'
+    import os
+    for mydir in [OUTPUT_ITEM_USER_FEATURES]:
+        os.makedirs(mydir, exist_ok=True)
+    df = cudf.read_parquet(INPUT+'/train_data/test.parquet')
+else:
+    df = pd.read_parquet('../../data/train_data/test.parquet')
+
 df = df.loc[df['type']!=0]
 df['hour'] = df.ts % (60*60*24)
 df['day'] = df.ts % (60*60*24*7)
@@ -32,7 +45,10 @@ for c in f32: user_features[c] = user_features[c].astype('float32')
 i32 = ['count_item2','unique_item2']
 for c in i32: user_features[c] = user_features[c].astype('int32')
 
-user_features = cudf.concat([user_features,user_features2],axis=1)
+if ON_KAGGLE:
+    user_features = cudf.concat([user_features,user_features2],axis=1)
+else:
+    user_features = pd.concat([user_features,user_features2],axis=1)
 
 user_features.columns = [x.replace('2','10') for x in user_features.columns]
 
@@ -40,4 +56,7 @@ user_features.head()
 
 user_features.dtypes
 
-user_features.to_parquet('../../data/item_user_features/user10.pqt')
+if ON_KAGGLE:
+    user_features.to_parquet(OUTPUT+'/data/item_user_features/user10.pqt')
+else:
+    user_features.to_parquet('../../data/item_user_features/user10.pqt')
