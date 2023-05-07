@@ -1,17 +1,32 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
-import cudf, glob, gc, pickle
+import glob, gc, pickle
+import pandas as pd
 
 VER = 115
 
-files = glob.glob('../../data/train_data/*_parquet/*')
+ON_KAGGLE=False
+if ON_KAGGLE:
+    import cudf
+    print('RAPIDS cuDF version',cudf.__version__)
+
+    INPUT='/kaggle/input/otto-mydata/otto-mydata'
+    OUTPUT='/kaggle/working'
+    OUTPUT_COVISIT_MATRICES=OUTPUT+'/data/covisit_matrices'
+    import os
+    for mydir in [OUTPUT_COVISIT_MATRICES]:
+        os.makedirs(mydir, exist_ok=True)
+
+    files = glob.glob(INPUT+'/train_data/*_parquet/*')
+else:
+    files = glob.glob('../../data/train_data/*_parquet/*')
+
 len( files )
 
 files[:4]
 
 type_weight = {0:1, 1:1, 2:1}
 
-%%time
 PIECES = 3
 SIZE = 1.86e6/PIECES
 
@@ -28,7 +43,10 @@ for PART in range(PIECES):
         # => INNER CHUNKS
         for k in range(a,b):
             # READ FILE
-            df = cudf.read_parquet(files[k])
+            if ON_KAGGLE:
+                df = cudf.read_parquet(files[k])
+            else:
+                df = pd.read_parquet(files[k])
 
             df = df.loc[df.ts>1662328791 - 60*60*24*21]
             if len(df)==0: continue
@@ -74,10 +92,14 @@ for PART in range(PIECES):
     tmp['n'] = tmp.groupby('aid_x').aid_y.cumcount()
     tmp = tmp.loc[tmp.n<40].drop('n',axis=1)
     # SAVE PART TO DISK
-    df = tmp.to_pandas().groupby('aid_x').aid_y.apply(list)
-    with open(f'../../data/covisit_matrices/top_40_aids_v{VER}_{PART}.pkl', 'wb') as f:
-        pickle.dump(df.to_dict(), f)
-
+    if ON_KAGGLE:
+        df = tmp.to_pandas().groupby('aid_x').aid_y.apply(list)
+        with open(OUTPUT + f'/data/covisit_matrices/top_40_aids_v{VER}_{PART}.pkl', 'wb') as f:
+            pickle.dump(df.to_dict(), f)
+    else:
+        df = tmp.groupby('aid_x').aid_y.apply(list)
+        with open(f'../../data/covisit_matrices/top_40_aids_v{VER}_{PART}.pkl', 'wb') as f:
+            pickle.dump(df.to_dict(), f)
     ## SAVE PART TO DISK
     #df = tmp.to_pandas().groupby('aid_x').wgt.apply(list)
     #with open(f'top_40_aids_v{VER}_{PART}_w.pkl', 'wb') as f:
