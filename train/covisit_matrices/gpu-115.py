@@ -37,7 +37,9 @@ for PART in range(PIECES):
 
     # MERGE IS FASTEST PROCESSING CHUNKS WITHIN CHUNKS
     # => OUTER CHUNKS
-    for a,b in [(0,20),(20,40),(40,60),(60,80),(80,100),(100,120)]:
+    # [TODO] reduce because of MemoryError
+    # for a,b in [(0,20),(20,40),(40,60),(60,80),(80,100),(100,120)]:
+    for a,b in [(0,20),(20,40),(40,60)]:
         print(f'Processing {b-a} files...')
 
         # => INNER CHUNKS
