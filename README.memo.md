@@ -99,6 +99,17 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [ ] user-features-4.ipynb
   * [ ] user-features-7.ipynb
 * => (2-4) merge candidates and features for click model with [/train/make_parquets/script-1.ipynb](train/make_parquets/script-1.ipynb)
+  * [ ] Make-152-split-users.ipynb
+  * [ ] Make-152-A.ipynb
+  * [ ] Make-152-B.ipynb
+  * [ ] Make-152-C.ipynb
+  * [ ] Make-152-D.ipynb
+  * [ ] Make-152-E.ipynb
+  * [ ] Make-152-A2.ipynb
+  * [ ] Make-152-B2.ipynb
+  * [ ] Make-152-C2.ipynb
+  * [ ] Make-152-D2.ipynb
+  * [ ] Make-152-E2.ipynb
 * => (2-5) train click model with [/train/ranker_models/XGB-186-CLICKS.ipynb](train/ranker_models/XGB-186-CLICKS.ipynb)
 * => (2-6) merge candidates and features for cart and order model with [/train/make_parquets/script-2.ipynb](train/make_parquets/script-2.ipynb)
 * => (2-7) train cart model with [/train/ranker_models/XGB-406-CARTS.ipynb](train/ranker_models/XGB-406-CARTS.ipynb)
