@@ -83,8 +83,8 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
   * [ ] model-709.ipynb
   * [ ] model-709-wgt.ipynb
 * => (2-3) engineer features with [/train/item_user_features/script.ipynb](train/item_user_features/script.ipynb)
-  * [ ] embeddings-for-train.ipynb
-  * [ ] item-features-10.ipynb
+  * [NG] embeddings-for-train.ipynb
+  * [x] item-features-10.ipynb
   * [ ] item-features-12.ipynb
   * [ ] item-features-13.ipynb
   * [ ] item-features-20.ipynb
