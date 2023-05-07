@@ -17,9 +17,9 @@ if ON_KAGGLE:
     for mydir in [OUTPUT_COVISIT_MATRICES]:
         os.makedirs(mydir, exist_ok=True)
 
-    files = glob.glob(INPUT+'/train_data/*_parquet/*')
+    files = glob.glob(INPUT+'/train_data/*_parquet/*.parquet')
 else:
-    files = glob.glob('../../data/train_data/*_parquet/*')
+    files = glob.glob('../../data/train_data/*_parquet/*.parquet')
 
 len( files )
 
