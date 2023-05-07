@@ -1,9 +1,21 @@
 import os,gc
+import pandas as pd
+
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
-import cudf
+ON_KAGGLE=False
+if ON_KAGGLE:
+    INPUT='/kaggle/input/otto-mydata/otto-mydata'
+    OUTPUT='/kaggle/working'
+    OUTPUT_ITEM_USER_FEATURES=OUTPUT+'/data/item_user_features'
+    import os
+    for mydir in [OUTPUT_ITEM_USER_FEATURES]:
+        os.makedirs(mydir, exist_ok=True)
 
-df = cudf.read_parquet('../../data/train_data/test.parquet')
+    import cudf
+    df = cudf.read_parquet(INPUT+'/train_data/test.parquet')
+else:
+    df = pd.read_parquet('../../data/train_data/test.parquet')
 
 df['hour'] = df.ts % (60*60*24)
 df['day'] = df.ts % (60*60*24*7)
@@ -64,8 +76,11 @@ for c in f32: item_features[c] = item_features[c].astype('float32')
 i32 = ['count_item3','count_user3']
 for c in i32: item_features[c] = item_features[c].astype('int32')
 
-item_features = cudf.concat([item_features,item_features2,item_features3],axis=1)
-
-item_features.head()
-
-item_features.to_parquet('../../data/item_user_features/item10.pqt')
+if ON_KAGGLE:
+    item_features = cudf.concat([item_features,item_features2,item_features3],axis=1)
+    print(item_features.head())
+    item_features.to_parquet(OUTPUT+'/data/item_user_features/item10.pqt')
+else:
+    item_features = pd.concat([item_features,item_features2,item_features3],axis=1)
+    print(item_features.head())
+    item_features.to_parquet('../../data/item_user_features/item10.pqt')
