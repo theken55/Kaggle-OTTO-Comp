@@ -16,7 +16,7 @@ This code ran successfully on 20xCPU 256GB and 1xGPU 32GB. Using less memory may
 * => Run [/data/make_train_valid.ipynb](data/make_train_valid.ipynb)
 * **(2) Train Models**
 * => (2-1) compute co-visit matrices by running [/train/covisit_matrices/script.ipynb](train/covisit_matrices/script.ipynb)
-  * [ ] gpu-115.ipynb
+  * [x] gpu-115.ipynb
   * [ ] gpu-116.ipynb
   * [ ] gpu-155.ipynb
   * [ ] gpu-157.ipynb
